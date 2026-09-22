@@ -19,4 +19,12 @@ jobs:
         run: docker run -d --name devsecops-lab -p 5000:5000 devsecops-security-lab
       
       - name: Test health endpoint
-        run: curl --fail --retry 5 --retry-delay 1 --retry-connrefused http://localhost:5000/health
+        run: |
+          for i in {1..10}; do
+            if curl --fail http://localhost:5000/health; then
+              exit 0
+            fi
+            echo "Application not ready; retrying..."
+            sleep 1
+          done
+          exit 1
