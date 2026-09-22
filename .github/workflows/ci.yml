@@ -17,6 +17,9 @@ jobs:
         
       - name: Run container
         run: docker run -d --name devsecops-lab -p 5000:5000 devsecops-security-lab
-
+      
+      - name: Show container logs
+        run: docker logs devsecops-lab
+      
       - name: Test health endpoint
         run: curl --fail http://localhost:5000/health
