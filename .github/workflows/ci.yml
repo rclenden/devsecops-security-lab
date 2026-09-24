@@ -25,7 +25,10 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devsecops-security-lab .
-        
+      
+      - name: Install Trivy
+        uses: aquasecurity/setup-trivy@v0.2.4
+      
       - name: Run container
         run: docker run -d --name devsecops-lab -p 5000:5000 devsecops-security-lab
       
